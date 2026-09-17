@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dev Arcade</title>
+  <meta name="description" content="Three tiny dev-flavored games. No accounts, no backend, just real-time reflexes and daily puzzles." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="logo pixel" href="index.html">👾 DEV_ARCADE</a>
+    <a class="back" href="https://github.com/blacksinisterx/dev-arcade" target="_blank" rel="noopener">SOURCE ↗</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1 class="pixel">INSERT COIN<span class="blink">_</span></h1>
+      <p>Three tiny games for people who spend too much time reading code. No accounts, no backend, no tracking — just your browser and localStorage.</p>
+    </div>
+
+    <div class="cabinets">
+      <a class="cabinet" href="bughunt.html" style="--accent: var(--magenta)">
+        <span class="stat" id="bh-stat"></span>
+        <span class="icon">🐛</span>
+        <p class="title">BUG HUNT</p>
+        <p class="desc">A real buggy snippet flashes on screen. Click the broken line before the clock runs out.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="mldle.html" style="--accent: var(--green)">
+        <span class="stat" id="ml-stat"></span>
+        <span class="icon">🔤</span>
+        <p class="title">MLDLE</p>
+        <p class="desc">Wordle, but today's 5-letter word is straight out of an ML paper. One word a day, six guesses.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="deprecated.html" style="--accent: var(--yellow)">
+        <span class="stat" id="dp-stat"></span>
+        <span class="icon">💾</span>
+        <p class="title">DEPRECATED OR NOT</p>
+        <p class="desc">A JS API name appears. Real, or something we made up? Build a streak, don't get cocky.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+    </div>
+
+    <p class="footer-note">Everything runs client-side. Scores and streaks live only in your browser's localStorage — clear your site data and they're gone, on purpose.</p>
+  </main>
+
+  <script src="shared.js"></script>
+  <script>
+    const bh = Arcade.getStats('bughunt')
+    const ml = Arcade.getStats('mldle')
+    const dp = Arcade.getStats('deprecated')
+    if (bh.best) document.getElementById('bh-stat').textContent = `BEST ${bh.best}`
+    if (ml.streak) document.getElementById('ml-stat').textContent = `🔥${ml.streak}`
+    if (dp.best) document.getElementById('dp-stat').textContent = `BEST ${dp.best}`
+  </script>
+</body>
+</html>

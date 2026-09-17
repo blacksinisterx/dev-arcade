@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bug Hunt — Dev Arcade</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐛</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .code-panel {
+      background: #030405;
+      border: 1px solid rgba(255,46,151,0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 13.5px;
+      line-height: 1.9;
+    }
+    .code-line {
+      display: flex;
+      cursor: pointer;
+      padding: 1px 0;
+      transition: background 0.1s ease;
+    }
+    .code-line:hover { background: rgba(255,46,151,0.08); }
+    .code-line .ln {
+      width: 34px;
+      flex-shrink: 0;
+      text-align: right;
+      padding-right: 12px;
+      color: #4a4f5c;
+      user-select: none;
+    }
+    .code-line pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .code-line.correct { background: rgba(57,255,136,0.18); }
+    .code-line.wrong { background: rgba(255,46,151,0.22); }
+    .timer-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 20px; }
+    .timer-fill { height: 100%; background: var(--magenta); width: 100%; transition: width 0.1s linear; }
+    .explain { margin-top: 16px; font-size: 13px; color: var(--text-dim); line-height: 1.6; padding: 14px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="logo pixel" href="index.html">👾 DEV_ARCADE</a>
+    <a class="back" href="index.html">← ARCADE</a>
+  </header>
+
+  <main>
+    <div class="game-shell">
+      <h1 class="game-title" style="color: var(--magenta)">🐛 BUG HUNT</h1>
+      <p class="game-sub">A real buggy snippet appears. Click the line with the bug before the clock runs out. 5 rounds.</p>
+
+      <div id="intro" class="panel center">
+        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Best score: <span id="best-score" style="color: var(--magenta)">0</span></p>
+        <button id="start-btn" class="btn btn-magenta">▶ START RUN</button>
+      </div>
+
+      <div id="play" hidden>
+        <div class="hud">
+          <span>ROUND <span class="val" id="round-num">1</span>/5</span>
+          <span>SCORE <span class="val" id="score-val">0</span></span>
+        </div>
+        <div class="timer-bar"><div class="timer-fill" id="timer-fill"></div></div>
+        <div class="code-panel" id="code-panel"></div>
+        <div id="explain" class="explain" hidden></div>
+        <div class="row" style="margin-top: 20px;">
+          <button id="next-btn" class="btn btn-magenta" hidden>NEXT ROUND →</button>
+        </div>
+      </div>
+
+      <div id="done" class="panel center" hidden>
+        <p class="pixel" style="font-size: 16px; color: var(--magenta); margin-bottom: 14px;" id="final-title">RUN COMPLETE</p>
+        <p style="font-size: 32px; font-weight: 800; margin: 0 0 6px;" id="final-score">0</p>
+        <p style="color: var(--text-dim); font-size: 12.5px; margin-bottom: 24px;" id="final-note"></p>
+        <div class="row">
+          <button id="retry-btn" class="btn btn-magenta">↻ PLAY AGAIN</button>
+          <a class="btn btn-ghost" href="index.html">ARCADE</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="shared.js"></script>
+  <script src="bughunt-data.js"></script>
+  <script src="bughunt.js"></script>
+</body>
+</html>
