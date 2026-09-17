@@ -59,6 +59,8 @@
     if (bh.best) document.getElementById('bh-stat').textContent = `BEST ${bh.best}`
     if (ml.streak) document.getElementById('ml-stat').textContent = `🔥${ml.streak}`
     if (dp.best) document.getElementById('dp-stat').textContent = `BEST ${dp.best}`
+    Arcade.staggerIn('.cabinet', 80)
+    document.querySelectorAll('.cabinet').forEach((c) => c.addEventListener('mouseenter', () => Arcade.sfx.tick()))
   </script>
 </body>
 </html>

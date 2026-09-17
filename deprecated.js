@@ -41,6 +41,10 @@ function loadCard() {
   choiceRow.hidden = false
   nextRow.hidden = true
   termName.textContent = deck[idx].name
+  termName.animate(
+    [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }],
+    { duration: 280, easing: 'cubic-bezier(.2,.7,.3,1)' }
+  )
 }
 
 function answer(guessReal) {
@@ -88,6 +92,8 @@ function endRun() {
 
 $('#real-btn').addEventListener('click', () => answer(true))
 $('#fake-btn').addEventListener('click', () => answer(false))
+$('#real-btn').addEventListener('mouseenter', () => Arcade.sfx.tick())
+$('#fake-btn').addEventListener('mouseenter', () => Arcade.sfx.tick())
 $('#next-btn').addEventListener('click', nextCard)
 $('#retry-btn').addEventListener('click', startRun)
 

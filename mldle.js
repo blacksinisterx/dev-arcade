@@ -88,8 +88,14 @@ function buildKeyboard() {
 function renderRow(rowIdx, word, result) {
   for (let c = 0; c < WORD_LEN; c++) {
     const cell = document.getElementById(`cell-${rowIdx}-${c}`)
+    const hadLetter = !!cell.textContent
     cell.textContent = word[c] || ''
     cell.classList.toggle('filled', !!word[c])
+    if (!hadLetter && word[c] && !result) {
+      cell.classList.remove('pop')
+      void cell.offsetWidth
+      cell.classList.add('pop')
+    }
     if (result) {
       setTimeout(() => {
         cell.classList.add('flip', result[c])
@@ -141,6 +147,7 @@ function handleKey(key) {
   } else if (/^[A-Za-z]$/.test(key) && current.length < WORD_LEN) {
     current += key.toUpperCase()
     renderRow(guesses.length, current, null)
+    Arcade.sfx.tick()
   }
 }
 

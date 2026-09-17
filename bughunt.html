@@ -15,6 +15,20 @@
       font-size: 13.5px;
       line-height: 1.9;
     }
+    .term-chrome {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 12px;
+      background: #0a0b10;
+      border-bottom: 1px solid rgba(255,46,151,0.2);
+    }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-dot.r { background: #ff5f56; }
+    .term-dot.y { background: #ffbd2e; }
+    .term-dot.g { background: #27c93f; }
+    .term-label { margin-left: 8px; font-size: 11px; color: #4a4f5c; }
+    .code-body { padding-top: 6px; }
     .code-line {
       display: flex;
       cursor: pointer;
@@ -61,7 +75,13 @@
           <span>SCORE <span class="val" id="score-val">0</span></span>
         </div>
         <div class="timer-bar"><div class="timer-fill" id="timer-fill"></div></div>
-        <div class="code-panel" id="code-panel"></div>
+        <div class="code-panel">
+          <div class="term-chrome">
+            <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+            <span class="term-label">bug.js</span>
+          </div>
+          <div class="code-body" id="code-panel"></div>
+        </div>
         <div id="explain" class="explain" hidden></div>
         <div class="row" style="margin-top: 20px;">
           <button id="next-btn" class="btn btn-magenta" hidden>NEXT ROUND →</button>

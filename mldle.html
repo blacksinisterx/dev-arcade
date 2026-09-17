@@ -46,6 +46,10 @@
       text-transform: uppercase;
     }
     .key:hover { background: #262c3a; }
+    .key { transition: transform 0.08s ease, background 0.12s ease; }
+    .key:active { transform: scale(0.9); }
+    .cell.pop { animation: pop 0.1s ease; }
+    @keyframes pop { 50% { transform: scale(1.08); } }
     .key.wide { flex: 1.6; font-size: 10px; }
     .key.correct { background: var(--green); color: #06070a; }
     .key.present { background: var(--yellow); color: #06070a; }

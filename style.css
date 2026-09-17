@@ -80,8 +80,22 @@ a { color: inherit; }
   border: 1px solid rgba(255,255,255,0.12);
   padding: 8px 12px;
   border-radius: 6px;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 .topbar .back:hover { color: var(--text); border-color: var(--cyan); }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.mute-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  width: 34px; height: 34px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+.mute-btn:hover { border-color: var(--cyan); }
+.mute-btn:active { transform: scale(0.9); }
 
 main {
   position: relative; z-index: 1;
@@ -127,11 +141,24 @@ main {
   background: linear-gradient(135deg, var(--accent, var(--cyan)) 0%, transparent 40%);
   opacity: 0.08;
 }
+.cabinet::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.12), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.cabinet:hover::after { left: 130%; }
 .cabinet:hover {
   transform: translateY(-4px);
   border-color: var(--accent, var(--cyan));
   box-shadow: 0 0 0 1px var(--accent, var(--cyan)), 0 12px 30px -12px var(--accent, var(--cyan));
 }
+.cabinet .icon { transition: transform 0.25s cubic-bezier(.34,1.56,.64,1); }
+.cabinet:hover .icon { transform: scale(1.18) rotate(-4deg); }
 .cabinet .icon { font-size: 34px; margin-bottom: 14px; display: block; }
 .cabinet .title { font-family: 'Press Start 2P', monospace; font-size: 13px; margin: 0 0 10px; color: var(--accent, var(--cyan)); }
 .cabinet .desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0 0 14px; }
@@ -153,7 +180,14 @@ main {
   font-size: clamp(16px, 3vw, 22px);
   text-align: center;
   margin: 0 0 8px;
-  text-shadow: 0 0 14px currentColor;
+  animation: title-glow 2.6s ease-in-out infinite;
+}
+@keyframes title-glow {
+  0%, 100% { text-shadow: 0 0 14px currentColor; }
+  50% { text-shadow: 0 0 22px currentColor, 0 0 36px currentColor; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-title { animation: none; text-shadow: 0 0 14px currentColor; }
 }
 .game-sub { text-align: center; color: var(--text-dim); font-size: 13px; margin: 0 0 30px; line-height: 1.6; }
 
@@ -169,7 +203,7 @@ main {
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
+.btn:active { transform: translateY(0) scale(0.96); }
 .btn-cyan { background: var(--cyan); box-shadow: 0 0 20px -4px var(--cyan); }
 .btn-magenta { background: var(--magenta); box-shadow: 0 0 20px -4px var(--magenta); }
 .btn-green { background: var(--green); box-shadow: 0 0 20px -4px var(--green); }

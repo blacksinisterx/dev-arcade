@@ -9,9 +9,18 @@ const Arcade = (() => {
     return ctx
   }
 
+  function isMuted() {
+    try { return localStorage.getItem('arcade:muted') === '1' } catch { return false }
+  }
+  function setMuted(val) {
+    try { localStorage.setItem('arcade:muted', val ? '1' : '0') } catch { /* storage can be unavailable */ }
+    document.querySelectorAll('.mute-btn').forEach((b) => { b.textContent = val ? '🔇' : '🔊' })
+  }
+
   // Real oscillator-based blips -- an 8-bit "arcade" sound is just a short
   // square/sine wave with a fast decay envelope, not a sample file.
   function beep({ freq = 440, duration = 0.08, type = 'square', volume = 0.06 } = {}) {
+    if (isMuted()) return
     try {
       const c = audioCtx()
       const osc = c.createOscillator()
@@ -82,5 +91,54 @@ const Arcade = (() => {
     }
   }
 
-  return { sfx, getStats, setStats, dayIndex, todayKey, confetti }
+  // Injects a mute toggle into the topbar on every page -- one shared
+  // control instead of copy-pasted markup/handlers per game.
+  function mountMuteButton() {
+    const bar = document.querySelector('.topbar')
+    if (!bar || bar.querySelector('.mute-btn')) return
+    const rightSide = bar.lastElementChild
+    const wrap = document.createElement('div')
+    wrap.className = 'topbar-right'
+    const btn = document.createElement('button')
+    btn.className = 'mute-btn'
+    btn.type = 'button'
+    btn.title = 'Toggle sound'
+    btn.textContent = isMuted() ? '🔇' : '🔊'
+    btn.addEventListener('click', () => setMuted(!isMuted()))
+    bar.replaceChild(wrap, rightSide)
+    wrap.append(btn, rightSide)
+  }
+
+  // A quick CRT "power on" flicker on first paint -- three fast opacity
+  // pulses then settle, purely cosmetic, respects reduced-motion.
+  function bootFlicker() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    document.body.animate(
+      [
+        { filter: 'brightness(0.3)', opacity: 0.4 },
+        { filter: 'brightness(1.4)', opacity: 1 },
+        { filter: 'brightness(0.5)', opacity: 0.7 },
+        { filter: 'brightness(1)', opacity: 1 },
+      ],
+      { duration: 380, easing: 'steps(4, end)' }
+    )
+  }
+
+  function staggerIn(selector, delayStep = 60) {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      el.style.opacity = '0'
+      el.animate(
+        [
+          { opacity: 0, transform: 'translateY(10px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ],
+        { duration: 380, delay: i * delayStep, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }
+      )
+    })
+  }
+
+  mountMuteButton()
+  bootFlicker()
+
+  return { sfx, getStats, setStats, dayIndex, todayKey, confetti, staggerIn, isMuted, setMuted }
 })()
