@@ -3,33 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Deprecated or Not — Dev Arcade</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💾</text></svg>" />
+  <title>Fact or Fiction — Dev Arcade</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .term-card {
-      text-align: center;
-      padding: 44px 24px;
-      margin-bottom: 22px;
-    }
+    .term-card { text-align: center; padding: 40px 24px; margin-bottom: 22px; }
     .term-name {
       font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(18px, 4vw, 24px);
-      font-weight: 800;
+      font-size: clamp(15px, 3.4vw, 18px);
+      font-weight: 700;
       color: var(--yellow);
-      word-break: break-word;
-      text-shadow: 0 0 16px rgba(255,210,63,0.35);
+      line-height: 1.5;
     }
-    .fact-box {
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--text-dim);
-      line-height: 1.6;
-      text-align: left;
-      padding: 14px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 8px;
-    }
+    .fact-box { margin-top: 16px; font-size: 13px; color: var(--text-dim); line-height: 1.6; text-align: left; padding: 14px; background: rgba(255,255,255,0.03); border-radius: 8px; }
     .verdict { font-family: 'Press Start 2P', monospace; font-size: 14px; margin-bottom: 10px; }
     .verdict.correct-v { color: var(--green); }
     .verdict.wrong-v { color: var(--magenta); }
@@ -44,8 +30,8 @@
 
   <main>
     <div class="game-shell">
-      <h1 class="game-title" style="color: var(--yellow)">💾 DEPRECATED OR NOT</h1>
-      <p class="game-sub">Real JS API, or something we made up? One wrong answer ends the run.</p>
+      <h1 class="game-title" style="color: var(--yellow)">🔬 FACT OR FICTION</h1>
+      <p class="game-sub">A claim appears. Real science, or a popular myth? One wrong answer ends the run.</p>
 
       <div class="hud">
         <span>STREAK <span class="val" id="streak-val">0</span></span>
@@ -59,8 +45,8 @@
       </div>
 
       <div id="choice-row" class="row">
-        <button id="real-btn" class="btn btn-green">✓ REAL</button>
-        <button id="fake-btn" class="btn btn-magenta">✗ FAKE</button>
+        <button id="real-btn" class="btn btn-green">✓ FACT</button>
+        <button id="fake-btn" class="btn btn-magenta">✗ MYTH</button>
       </div>
       <div id="next-row" class="row" hidden>
         <button id="next-btn" class="btn btn-cyan">NEXT →</button>
@@ -74,7 +60,7 @@
 
   <script src="shared.js"></script>
   <script src="quiz-binary.js"></script>
-  <script src="deprecated-data.js"></script>
-  <script src="deprecated.js"></script>
+  <script src="factfiction-data.js"></script>
+  <script>BinaryQuiz({ items: SCIENCE_TRIVIA, statsKey: 'factfiction', trueLabel: 'FACT', falseLabel: 'MYTH', promptField: 'name', flagField: 'real' })</script>
 </body>
 </html>

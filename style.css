@@ -117,6 +117,13 @@ main {
 .blink { animation: blink 1.1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0.2; } }
 
+.section-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  margin: 40px 0 18px;
+  letter-spacing: 1px;
+}
+.cabinets:first-of-type { margin-top: 0; }
 .cabinets {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -233,5 +240,17 @@ main {
   border-radius: 14px;
   padding: 24px;
 }
+
+.options-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+.opt-btn { width: 100%; }
+.opt-btn:disabled { opacity: 1; cursor: default; transform: none; }
+.opt-btn.opt-correct { background: var(--green) !important; box-shadow: 0 0 20px -4px var(--green); }
+.opt-btn.opt-wrong { background: var(--magenta) !important; box-shadow: 0 0 20px -4px var(--magenta); }
+
+.prompt-emoji { font-size: 72px; line-height: 1; }
 
 [hidden] { display: none !important; }

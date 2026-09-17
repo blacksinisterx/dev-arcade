@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dev Arcade</title>
-  <meta name="description" content="Three tiny dev-flavored games. No accounts, no backend, just real-time reflexes and daily puzzles." />
+  <meta name="description" content="Seven tiny learning games, tech and non-tech. No accounts, no backend, just real-time reflexes and daily puzzles." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,9 +19,10 @@
   <main>
     <div class="hero">
       <h1 class="pixel">INSERT COIN<span class="blink">_</span></h1>
-      <p>Three tiny games for people who spend too much time reading code. No accounts, no backend, no tracking — just your browser and localStorage.</p>
+      <p>Seven tiny learning games — tech and non-tech. No accounts, no backend, no tracking — just your browser and localStorage.</p>
     </div>
 
+    <h2 class="section-label" style="color: var(--cyan)">🧠 TECH</h2>
     <div class="cabinets">
       <a class="cabinet" href="bughunt.html" style="--accent: var(--magenta)">
         <span class="stat" id="bh-stat"></span>
@@ -46,6 +47,41 @@
         <p class="desc">A JS API name appears. Real, or something we made up? Build a streak, don't get cocky.</p>
         <p class="play">▶ PLAY</p>
       </a>
+
+      <a class="cabinet" href="bigobout.html" style="--accent: var(--cyan)">
+        <span class="stat" id="bo-stat"></span>
+        <span class="icon">⏱️</span>
+        <p class="title">BIG-O BOUT</p>
+        <p class="desc">Real code appears. Name its time complexity before your streak snaps.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="httpstatus.html" style="--accent: var(--green)">
+        <span class="stat" id="hs-stat"></span>
+        <span class="icon">🌐</span>
+        <p class="title">HTTP STATUS SHOWDOWN</p>
+        <p class="desc">A status code appears — 418 and 451 included. Know what it actually means?</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+    </div>
+
+    <h2 class="section-label" style="color: var(--magenta)">🌍 GENERAL</h2>
+    <div class="cabinets">
+      <a class="cabinet" href="flagfrenzy.html" style="--accent: var(--magenta)">
+        <span class="stat" id="ff-stat"></span>
+        <span class="icon">🚩</span>
+        <p class="title">FLAG FRENZY</p>
+        <p class="desc">A flag appears. Name the country. Comes with a real fun fact either way.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="factfiction.html" style="--accent: var(--yellow)">
+        <span class="stat" id="sf-stat"></span>
+        <span class="icon">🔬</span>
+        <p class="title">FACT OR FICTION</p>
+        <p class="desc">A science claim appears. Real, or a popular myth? Every myth here is a real debunked one.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
     </div>
 
     <p class="footer-note">Everything runs client-side. Scores and streaks live only in your browser's localStorage — clear your site data and they're gone, on purpose.</p>
@@ -53,13 +89,20 @@
 
   <script src="shared.js"></script>
   <script>
-    const bh = Arcade.getStats('bughunt')
+    const showBest = (statsKey, elId) => {
+      const s = Arcade.getStats(statsKey)
+      if (s.best) document.getElementById(elId).textContent = `BEST ${s.best}`
+    }
+    showBest('bughunt', 'bh-stat')
+    showBest('deprecated', 'dp-stat')
+    showBest('bigobout', 'bo-stat')
+    showBest('httpstatus', 'hs-stat')
+    showBest('flagfrenzy', 'ff-stat')
+    showBest('factfiction', 'sf-stat')
     const ml = Arcade.getStats('mldle')
-    const dp = Arcade.getStats('deprecated')
-    if (bh.best) document.getElementById('bh-stat').textContent = `BEST ${bh.best}`
     if (ml.streak) document.getElementById('ml-stat').textContent = `🔥${ml.streak}`
-    if (dp.best) document.getElementById('dp-stat').textContent = `BEST ${dp.best}`
-    Arcade.staggerIn('.cabinet', 80)
+
+    Arcade.staggerIn('.cabinet', 60)
     document.querySelectorAll('.cabinet').forEach((c) => c.addEventListener('mouseenter', () => Arcade.sfx.tick()))
   </script>
 </body>
