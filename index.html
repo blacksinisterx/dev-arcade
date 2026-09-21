@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dev Arcade</title>
-  <meta name="description" content="Nine tiny games -- skill, tech, and general knowledge. No accounts, no backend, just real-time reflexes and daily puzzles." />
+  <meta name="description" content="Eleven tiny games -- skill, tech, and general knowledge. No accounts, no backend, just real-time reflexes and daily puzzles." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,7 +19,7 @@
   <main>
     <div class="hero">
       <h1 class="pixel">INSERT COIN<span class="blink">_</span></h1>
-      <p>Nine tiny games — skill, tech, and general knowledge. No accounts, no backend, no tracking — just your browser and localStorage.</p>
+      <p>Eleven tiny games — skill, tech, and general knowledge. No accounts, no backend, no tracking — just your browser and localStorage.</p>
     </div>
 
     <h2 class="section-label" style="color: var(--yellow)">⚡ SKILL</h2>
@@ -37,6 +37,22 @@
         <span class="icon">⚡</span>
         <p class="title">NEON DASH</p>
         <p class="desc">Real-time canvas dodger with a glowing trail. The glitches never stop speeding up.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="terminal.html" style="--accent: var(--green)">
+        <span class="stat" id="rt-stat"></span>
+        <span class="icon">💻</span>
+        <p class="title">ROOT ACCESS</p>
+        <p class="desc">A real interactive fake terminal. Navigate a virtual filesystem with real ls/cd/cat/grep/find to capture the flag on 4 levels.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="codegolf.html" style="--accent: var(--yellow)">
+        <span class="stat" id="cg-stat"></span>
+        <span class="icon">⛳</span>
+        <p class="title">CODE GOLF</p>
+        <p class="desc">Write the shortest real JavaScript that passes the test cases. Runs safely sandboxed in a Web Worker with a timeout.</p>
         <p class="play">▶ PLAY</p>
       </a>
     </div>
@@ -114,6 +130,9 @@
     }
     showBest('echo', 'ec-stat')
     showBest('neondash', 'nd-stat')
+    showBest('terminal', 'rt-stat')
+    const cg = Arcade.getStats('codegolf')
+    if (cg.bestTotal != null) document.getElementById('cg-stat').textContent = `BEST ${cg.bestTotal}`
     showBest('bughunt', 'bh-stat')
     showBest('deprecated', 'dp-stat')
     showBest('bigobout', 'bo-stat')

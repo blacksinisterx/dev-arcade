@@ -2,7 +2,7 @@
 
 # 👾 Dev Arcade
 
-**Nine tiny games — skill, tech, and general knowledge.**
+**Eleven tiny games — skill, tech, and general knowledge.**
 
 [![No backend](https://img.shields.io/badge/backend-none-brightgreen)](#why-its-tiny)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-blue)](#why-its-tiny)
@@ -20,6 +20,8 @@
 |---|---|
 | 🎵 **Echo** | A Simon-Says memory game built entirely from real synthesized musical notes (an actual C-major arpeggio, not arbitrary tones) — no audio files anywhere. Watch the pattern, repeat it; each round adds one more note and the pace quickens. |
 | ⚡ **Neon Dash** | A real-time canvas dodger. A glowing dot with a fading trail, falling glitches that speed up the longer you survive, particle-burst on death, screen shake — arrow keys/A-D, or drag on touch. Score is real elapsed survival time. |
+| 💻 **Root Access** | A real interactive fake terminal. Navigate an actual virtual filesystem with real commands — `ls -a`, `cd`, `cat`, `grep`, `find . -name "..."` (wildcards included) — across 4 levels of increasing trickiness (a dotfile hidden from plain `ls`, a decoy flag to see through, a flag buried in a log file, a flag nested deep enough that `find` beats manually `cd`-ing everywhere). |
+| ⛳ **Code Golf** | Write the shortest real JavaScript that passes real test cases — 5 classic golf challenges (is it even, reverse a string, sum/max an array, palindrome check), scored by character count against a genuine reference-solution par. Runs sandboxed in a Web Worker with a hard timeout, so an accidental infinite loop can't freeze the page (verified directly: the tab stayed fully responsive while a submitted `while(true){}` was killed after 1.5s). |
 
 ### 🧠 Tech
 
@@ -40,7 +42,7 @@
 
 ## Why it's tiny
 
-No backend, no build step, no framework, no npm dependencies. Every "sound effect" is a synthesized oscillator beep (Web Audio API), not an audio file — Echo's entire game is real synthesized tones, and Neon Dash is hand-drawn Canvas 2D, no rendering library. The only external things loaded are two Google Fonts, one small flag-image CDN for Flag Frenzy, and nothing else. Streaks and best scores live in `localStorage` — clear your site data and they're gone, on purpose.
+No backend, no build step, no framework, no npm dependencies. Every "sound effect" is a synthesized oscillator beep (Web Audio API), not an audio file — Echo's entire game is real synthesized tones, and Neon Dash is hand-drawn Canvas 2D, no rendering library. Root Access is a real (if small) shell interpreter over an in-memory virtual filesystem. Code Golf runs player-submitted code in an actual Web Worker, not a fake sandbox. The only external things loaded are two Google Fonts, one small flag-image CDN for Flag Frenzy, and nothing else. Streaks and best scores live in `localStorage` — clear your site data and they're gone, on purpose.
 
 ## Architecture
 
@@ -54,16 +56,18 @@ quiz-mc.js               Shared engine: multiple-choice, streak-based (Big-O Bou
 
 echo.html/.js            Game 1 -- Web Audio-driven memory game, bespoke
 neondash.html/.js        Game 2 -- real-time Canvas 2D game loop, bespoke
-bughunt.html/.js         Game 3 (+ bughunt-data.js: 10 real bug snippets)
-mldle.html/.js           Game 4 (+ mldle-data.js: real 5-letter AI/ML word list) -- bespoke, real Wordle mechanics
-deprecated.html/.js      Game 5 (+ deprecated-data.js) -- thin config over quiz-binary.js
-bigobout.html            Game 6 (+ bigobout-data.js) -- thin config over quiz-mc.js
-httpstatus.html          Game 7 (+ httpstatus-data.js) -- thin config over quiz-mc.js
-flagfrenzy.html          Game 8 (+ flagfrenzy-data.js) -- thin config over quiz-mc.js
-factfiction.html         Game 9 (+ factfiction-data.js) -- thin config over quiz-binary.js
+terminal.html/.js        Game 3 (+ terminal-data.js: 4 virtual filesystem trees) -- real shell interpreter, bespoke
+codegolf.html/.js        Game 4 (+ codegolf-data.js: 5 challenges, verified reference solutions) -- Web Worker sandbox, bespoke
+bughunt.html/.js         Game 5 (+ bughunt-data.js: 10 real bug snippets)
+mldle.html/.js           Game 6 (+ mldle-data.js: real 5-letter AI/ML word list) -- bespoke, real Wordle mechanics
+deprecated.html/.js      Game 7 (+ deprecated-data.js) -- thin config over quiz-binary.js
+bigobout.html            Game 8 (+ bigobout-data.js) -- thin config over quiz-mc.js
+httpstatus.html          Game 9 (+ httpstatus-data.js) -- thin config over quiz-mc.js
+flagfrenzy.html          Game 10 (+ flagfrenzy-data.js) -- thin config over quiz-mc.js
+factfiction.html         Game 11 (+ factfiction-data.js) -- thin config over quiz-binary.js
 ```
 
-Each quiz-shaped game is a plain HTML page + a small data file wired into one of the two shared engines instead of re-implementing streak/scoring/reveal logic from scratch. Echo, Neon Dash, Bug Hunt, and MLdle have genuinely different mechanics, so they stay bespoke.
+Each quiz-shaped game is a plain HTML page + a small data file wired into one of the two shared engines instead of re-implementing streak/scoring/reveal logic from scratch. Echo, Neon Dash, Root Access, Code Golf, Bug Hunt, and MLdle have genuinely different mechanics, so they stay bespoke.
 
 ## Running locally
 
