@@ -2,7 +2,7 @@
 
 # 👾 Dev Arcade
 
-**Seven tiny learning games — tech and non-tech.**
+**Nine tiny games — skill, tech, and general knowledge.**
 
 [![No backend](https://img.shields.io/badge/backend-none-brightgreen)](#why-its-tiny)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-blue)](#why-its-tiny)
@@ -13,6 +13,13 @@
 ---
 
 ## The games
+
+### ⚡ Skill
+
+| | |
+|---|---|
+| 🎵 **Echo** | A Simon-Says memory game built entirely from real synthesized musical notes (an actual C-major arpeggio, not arbitrary tones) — no audio files anywhere. Watch the pattern, repeat it; each round adds one more note and the pace quickens. |
+| ⚡ **Neon Dash** | A real-time canvas dodger. A glowing dot with a fading trail, falling glitches that speed up the longer you survive, particle-burst on death, screen shake — arrow keys/A-D, or drag on touch. Score is real elapsed survival time. |
 
 ### 🧠 Tech
 
@@ -33,28 +40,30 @@
 
 ## Why it's tiny
 
-No backend, no build step, no framework, no npm dependencies. Every "sound effect" is a synthesized oscillator beep (Web Audio API), not an audio file. The only external things loaded are two Google Fonts, one small flag-image CDN for Flag Frenzy, and nothing else. Streaks and best scores live in `localStorage` — clear your site data and they're gone, on purpose.
+No backend, no build step, no framework, no npm dependencies. Every "sound effect" is a synthesized oscillator beep (Web Audio API), not an audio file — Echo's entire game is real synthesized tones, and Neon Dash is hand-drawn Canvas 2D, no rendering library. The only external things loaded are two Google Fonts, one small flag-image CDN for Flag Frenzy, and nothing else. Streaks and best scores live in `localStorage` — clear your site data and they're gone, on purpose.
 
 ## Architecture
 
 ```
-index.html              Arcade hub / game-select screen, grouped Tech / General
+index.html              Arcade hub / game-select screen, grouped Skill / Tech / General
 style.css                Shared retro-CRT/neon theme (scanlines, grid bg, glow)
-shared.js                Synthesized SFX + mute toggle, localStorage helpers, day-seed, confetti
+shared.js                Synthesized SFX + mute toggle, localStorage helpers, day-seed, confetti, screen-shake
 
 quiz-binary.js           Shared engine: real-or-fake, streak-based (Deprecated or Not, Fact or Fiction)
 quiz-mc.js               Shared engine: multiple-choice, streak-based (Big-O Bout, HTTP Status, Flag Frenzy)
 
-bughunt.html/.js         Game 1 (+ bughunt-data.js: 10 real bug snippets)
-mldle.html/.js           Game 2 (+ mldle-data.js: real 5-letter AI/ML word list) -- bespoke, real Wordle mechanics
-deprecated.html/.js      Game 3 (+ deprecated-data.js) -- thin config over quiz-binary.js
-bigobout.html            Game 4 (+ bigobout-data.js) -- thin config over quiz-mc.js
-httpstatus.html          Game 5 (+ httpstatus-data.js) -- thin config over quiz-mc.js
-flagfrenzy.html          Game 6 (+ flagfrenzy-data.js) -- thin config over quiz-mc.js
-factfiction.html         Game 7 (+ factfiction-data.js) -- thin config over quiz-binary.js
+echo.html/.js            Game 1 -- Web Audio-driven memory game, bespoke
+neondash.html/.js        Game 2 -- real-time Canvas 2D game loop, bespoke
+bughunt.html/.js         Game 3 (+ bughunt-data.js: 10 real bug snippets)
+mldle.html/.js           Game 4 (+ mldle-data.js: real 5-letter AI/ML word list) -- bespoke, real Wordle mechanics
+deprecated.html/.js      Game 5 (+ deprecated-data.js) -- thin config over quiz-binary.js
+bigobout.html            Game 6 (+ bigobout-data.js) -- thin config over quiz-mc.js
+httpstatus.html          Game 7 (+ httpstatus-data.js) -- thin config over quiz-mc.js
+flagfrenzy.html          Game 8 (+ flagfrenzy-data.js) -- thin config over quiz-mc.js
+factfiction.html         Game 9 (+ factfiction-data.js) -- thin config over quiz-binary.js
 ```
 
-Each game is a plain HTML page + a small data file — most just wire their content into one of the two shared quiz engines instead of re-implementing streak/scoring/reveal logic from scratch. Bug Hunt and MLdle have genuinely different mechanics (a timed click-target and real Wordle rules), so they stay bespoke.
+Each quiz-shaped game is a plain HTML page + a small data file wired into one of the two shared engines instead of re-implementing streak/scoring/reveal logic from scratch. Echo, Neon Dash, Bug Hunt, and MLdle have genuinely different mechanics, so they stay bespoke.
 
 ## Running locally
 

@@ -35,6 +35,13 @@ const Arcade = (() => {
     } catch { /* audio can fail before a user gesture -- fine to skip */ }
   }
 
+  // A warmer, longer sine-wave "pad" tone (as opposed to the short square
+  // blips above) -- for games where the sound itself is the content, not
+  // just UI feedback (Echo's note pads).
+  function tone(freq, duration = 0.35) {
+    beep({ freq, duration, type: 'sine', volume: 0.09 })
+  }
+
   const sfx = {
     click: () => beep({ freq: 320, duration: 0.05 }),
     correct: () => { beep({ freq: 523, duration: 0.09 }); setTimeout(() => beep({ freq: 784, duration: 0.12 }), 90) },
@@ -140,5 +147,17 @@ const Arcade = (() => {
   mountMuteButton()
   bootFlicker()
 
-  return { sfx, getStats, setStats, dayIndex, todayKey, confetti, staggerIn, isMuted, setMuted }
+  function shake(el, amount = 8) {
+    el.animate(
+      [
+        { transform: 'translate(0,0)' },
+        { transform: `translate(${amount}px,${-amount / 2}px)` },
+        { transform: `translate(${-amount}px,${amount / 2}px)` },
+        { transform: 'translate(0,0)' },
+      ],
+      { duration: 220, easing: 'ease-out' }
+    )
+  }
+
+  return { sfx, tone, getStats, setStats, dayIndex, todayKey, confetti, staggerIn, isMuted, setMuted, shake }
 })()

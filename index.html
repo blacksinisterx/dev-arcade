@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dev Arcade</title>
-  <meta name="description" content="Seven tiny learning games, tech and non-tech. No accounts, no backend, just real-time reflexes and daily puzzles." />
+  <meta name="description" content="Nine tiny games -- skill, tech, and general knowledge. No accounts, no backend, just real-time reflexes and daily puzzles." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,7 +19,26 @@
   <main>
     <div class="hero">
       <h1 class="pixel">INSERT COIN<span class="blink">_</span></h1>
-      <p>Seven tiny learning games — tech and non-tech. No accounts, no backend, no tracking — just your browser and localStorage.</p>
+      <p>Nine tiny games — skill, tech, and general knowledge. No accounts, no backend, no tracking — just your browser and localStorage.</p>
+    </div>
+
+    <h2 class="section-label" style="color: var(--yellow)">⚡ SKILL</h2>
+    <div class="cabinets">
+      <a class="cabinet" href="echo.html" style="--accent: var(--cyan)">
+        <span class="stat" id="ec-stat"></span>
+        <span class="icon">🎵</span>
+        <p class="title">ECHO</p>
+        <p class="desc">A Simon-Says memory game built entirely from real synthesized musical notes. How many rounds can you hold?</p>
+        <p class="play">▶ PLAY</p>
+      </a>
+
+      <a class="cabinet" href="neondash.html" style="--accent: var(--magenta)">
+        <span class="stat" id="nd-stat"></span>
+        <span class="icon">⚡</span>
+        <p class="title">NEON DASH</p>
+        <p class="desc">Real-time canvas dodger with a glowing trail. The glitches never stop speeding up.</p>
+        <p class="play">▶ PLAY</p>
+      </a>
     </div>
 
     <h2 class="section-label" style="color: var(--cyan)">🧠 TECH</h2>
@@ -93,6 +112,8 @@
       const s = Arcade.getStats(statsKey)
       if (s.best) document.getElementById(elId).textContent = `BEST ${s.best}`
     }
+    showBest('echo', 'ec-stat')
+    showBest('neondash', 'nd-stat')
     showBest('bughunt', 'bh-stat')
     showBest('deprecated', 'dp-stat')
     showBest('bigobout', 'bo-stat')
